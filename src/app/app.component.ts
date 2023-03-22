@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogModalComponent } from './dialog-modal/dialog-modal.component';
 
 @Component({
@@ -10,11 +10,12 @@ import { DialogModalComponent } from './dialog-modal/dialog-modal.component';
 export class AppComponent {
   constructor(public dialog: MatDialog) {}
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DialogModalComponent);
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = true; // Prevent the dialog from closing
+    dialogConfig.data = {};
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
+    const dialogRef = this.dialog.open(DialogModalComponent, dialogConfig);
+ }
 }

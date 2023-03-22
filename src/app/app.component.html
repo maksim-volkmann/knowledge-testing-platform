@@ -1,1 +1,11 @@
-<button mat-button (click)="openDialog()">Open dialog</button>
+<button mat-raised-button (click)="openDialog()">Open Dialog</button>
+
+<ng-template #dialogTemplate>
+  <h2 mat-dialog-title>Questions</h2>
+  <mat-dialog-content>
+    <app-dialog-modal></app-dialog-modal>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</ng-template>
