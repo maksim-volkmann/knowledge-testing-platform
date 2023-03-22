@@ -1,4 +1,12 @@
-<div *ngFor="let question of paginatedQuestions">{{ question }}</div>
+<!-- Add progress display at the top -->
+<p>Answered: {{ countAnsweredQuestions() }}/{{ questions.length }}</p>
+
+<div *ngFor="let question of paginatedQuestions">
+  <p>{{ question.text }}</p>
+  <mat-radio-group [(ngModel)]="selectedAnswers[question.id]">
+    <mat-radio-button *ngFor="let option of question.options" [value]="option">{{ option }}</mat-radio-button>
+  </mat-radio-group>
+</div>
 
 <mat-paginator
   [length]="questions.length"
@@ -6,11 +14,21 @@
   (page)="onPageChange($event)"
 ></mat-paginator>
 
+<button
+  mat-raised-button
+  (click)="onNextButtonClick()"
+  [disabled]="!allQuestionsAnsweredOnPage()"
+>
+  Next
+</button>
+
+<!-- Add the close button only on the last page -->
 <button *ngIf="pageIndex === lastPageIndex" mat-raised-button mat-dialog-close>Close</button>
 
-<!-- <div *ngFor="let question of paginatedQuestions">{{ question }}</div>
+<!-- Add a conditional score display on the last page -->
+<p *ngIf="pageIndex === lastPageIndex">Your score: {{ calculateScore() }}/{{ questions.length }}</p>
 
-<div class="pagination-controls">
-  <button mat-raised-button (click)="previousPage()" [disabled]="pageIndex === 0">Previous</button>
-  <button mat-raised-button (click)="nextPage()" [disabled]="pageIndex === lastPageIndex">Next</button>
-</div> -->
+<!-- Show the Submit button only on the last page -->
+<div class="actions" *ngIf="pageIndex === lastPageIndex">
+  <button mat-button color="primary" (click)="onSubmit()">Submit</button>
+</div>

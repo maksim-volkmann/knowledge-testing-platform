@@ -1,4 +1,8 @@
-<button mat-raised-button (click)="openDialog()">Open Dialog</button>
+<mat-card>
+  <h2>Welcome to the Knowledge Testing Platform!</h2>
+  <p>If you want to take the test, click the button below:</p>
+  <button mat-raised-button color="primary" (click)="openDialog()">Start</button>
+</mat-card>
 
 <ng-template #dialogTemplate>
   <h2 mat-dialog-title>Questions</h2>
